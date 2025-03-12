@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+html {
+	@apply bg-neutral-950 text-white;
+}
+
+body {
+	font-size: 20px;
+	margin: 0 auto;
+}
+
+input,
+button {
+	font-size: 20px;
+}
+
+h1 {
+	@apply text-3xl;
+}
+
+h2 {
+	@apply text-2xl;
+}

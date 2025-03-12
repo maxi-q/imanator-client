@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to 9231",
+      "address": "127.0.0.1",
+      "port": 9231,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "."
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Next.js",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 9231,
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
