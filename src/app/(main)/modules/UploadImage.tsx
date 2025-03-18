@@ -1,10 +1,14 @@
 'use client'
+
+import { useImages } from "@/app/hooks/useImages";
 import imagesService from "@/services/images/images.servise";
 import { useState } from "react";
 
 export default function UploadImage() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false); // Состояние для отслеживания перетаскивания
+
+  const { refetch } = useImages();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -42,8 +46,14 @@ export default function UploadImage() {
     }
 
     try {
-      await imagesService.uploadFileToS3(file);
-      alert('Файл успешно загружен.');
+      const imageData = await imagesService.createImage({
+        name: `${file.name} ${new Date(file.lastModified).toLocaleDateString()}`,
+        fileName: file.name,
+        description: 'автоматически созданное описание'
+      })
+
+      await imagesService.uploadFileToS3(file, imageData.id);
+      refetch()
     } catch (error) {
       console.error('Ошибка:', error);
       alert('Ошибка при загрузке файла.');

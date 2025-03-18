@@ -1,13 +1,31 @@
 'use client'
 
 import { useImages } from "@/app/hooks/useImages";
+import imagesService from "@/services/images/images.servise";
 
 const ImagesList = () => {
-  const { images, isLoading } = useImages();
+  const { images, isLoading, isRefetching } = useImages();
+
+  const downloadImage = async (fileId: string, fileName: string) => {
+    const downloadUrl = await imagesService.getDownloadUrl(fileId);
+
+    const response = await fetch(downloadUrl);
+
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = fileName;
+    link.click();
+
+    URL.revokeObjectURL(blobUrl);
+  };
+
 
   return (
     <div className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] w-full transition-colors">
-      {isLoading ? (
+      {isLoading || isRefetching ? (
         <div className="flex items-center justify-center p-8 text-gray-600 dark:text-gray-300">
           <svg
             className="animate-spin h-8 w-8 text-blue-500"
@@ -52,7 +70,7 @@ const ImagesList = () => {
                 <td className="p-4">
                   <button
                     className="text-blue-500 hover:underline text-sm transition-colors"
-                    onClick={() => console.log('Download:', image)}
+                    onClick={() => downloadImage(image.id, image.fileName)}
                   >
                     Download
                   </button>

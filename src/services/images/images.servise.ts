@@ -19,19 +19,18 @@ class ImagesService {
   }
 
   async getDownloadUrl(fileId: string) {
-    const response = await instance.get<Record<string, string>>(`${this._BASE_URL}/${fileId}/download-url`);
+    const response = await instance.get<string>(`${this._BASE_URL}/${fileId}/download-url`);
     return response.data;
   }
 
   async getUploadConfig(fileId?: string) {
-    fileId = '9f83eff7-4e27-4aae-a62e-9e69aa941724'
     const response = await instance.get<getUploadConfigResponse>(`${this._BASE_URL}/${fileId}/upload-config`);
     return response.data;
   }
 
-  async uploadFileToS3(file: File) {
+  async uploadFileToS3(file: File, fileId: string) {
     try {
-      const { url, fields } = await this.getUploadConfig();
+      const { url, fields } = await this.getUploadConfig(fileId);
       const formData = new FormData();
 
       for (let [key, value] of Object.entries(fields)) {
