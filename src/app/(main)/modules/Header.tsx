@@ -10,7 +10,7 @@ import { useTransition } from 'react';
 
 const Header = () => {
   const { push } = useRouter()
-  const { user, isLoading } = useProfile();
+  const { profile, isLoading } = useProfile();
 
   const [isPending, startTransition] = useTransition()
 
@@ -29,7 +29,7 @@ const Header = () => {
     <header className='bg-black' style={{ padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div>
         {isLoading && <p>Loading...</p>}
-        {user && <p>Welcome, {user.firstName} {user.lastName}</p>}
+        {profile && <p>Welcome, {profile.firstName} {profile.lastName}</p>}
       </div>
       <div>
         <button

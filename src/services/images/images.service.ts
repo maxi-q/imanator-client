@@ -1,10 +1,6 @@
 import { instance } from '@/api/axios';
 import { createImageRequest, createImageResponse, getImagesResponse, getUploadConfigResponse } from './images.types';
 
-// import FormData from 'form-data'
-
-
-
 class ImagesService {
   private _BASE_URL = '/images';
 
@@ -34,9 +30,8 @@ class ImagesService {
       const formData = new FormData();
 
       for (let [key, value] of Object.entries(fields)) {
-        // TODO: автоопределение image/*
         if (key === 'acl') continue;
-        if (key === 'Content-Type') value = 'image/png';
+        if (key === 'Content-Type') value = file.type;
         formData.append(key, value);
       }
 

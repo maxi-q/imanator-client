@@ -1,7 +1,7 @@
 'use client'
 
 import { useImages } from "@/app/hooks/useImages";
-import imagesService from "@/services/images/images.servise";
+import imagesService from "@/services/images/images.service";
 
 const ImagesList = () => {
   const { images, isLoading, isRefetching } = useImages();

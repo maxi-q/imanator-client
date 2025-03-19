@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 
 import { IFormData } from '@/types/types'
 import { serverLogin } from '@/utils/server/login-server'
+import { MutationKeys } from '@/config/tanstack/mutationKeys'
 
 export function useAuthForm(isLogin: boolean) {
 	const { register, handleSubmit, reset } = useForm<IFormData>()
@@ -16,7 +17,7 @@ export function useAuthForm(isLogin: boolean) {
 
 
 	const { mutate: mutateLogin, isPending: isLoginPending } = useMutation({
-		mutationKey: ['login'],
+		mutationKey: [MutationKeys.LOGIN],
 		mutationFn: (data: IFormData) =>
 			serverLogin('login', data),
 		onSuccess() {
@@ -33,7 +34,7 @@ export function useAuthForm(isLogin: boolean) {
 	})
 
 	const { mutate: mutateRegister, isPending: isRegisterPending } = useMutation({
-		mutationKey: ['register'],
+		mutationKey: [MutationKeys.REGISTER],
 		mutationFn: (data: IFormData) =>
       serverLogin('register', data),
 		onSuccess() {

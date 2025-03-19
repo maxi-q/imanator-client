@@ -1,14 +1,24 @@
 'use client'
 
-import { useImages } from "@/app/hooks/useImages";
-import imagesService from "@/services/images/images.servise";
-import { useState } from "react";
+import { useUploadImage } from "@/app/hooks/useUploadImage";
+import { useEffect, useState } from "react";
 
 export default function UploadImage() {
   const [file, setFile] = useState<File | null>(null);
+
   const [isDragging, setIsDragging] = useState<boolean>(false); // Состояние для отслеживания перетаскивания
 
-  const { refetch } = useImages();
+
+  const { uploadImage, isPending, isSuccess } = useUploadImage();
+
+  const removeImage = () => setFile(null)
+
+  useEffect(() => {
+    console.log('isSuccess', isSuccess)
+    if (isSuccess) {
+      removeImage();
+    }
+  }, [isSuccess]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -45,19 +55,7 @@ export default function UploadImage() {
       return;
     }
 
-    try {
-      const imageData = await imagesService.createImage({
-        name: `${file.name} ${new Date(file.lastModified).toLocaleDateString()}`,
-        fileName: file.name,
-        description: 'автоматически созданное описание'
-      })
-
-      await imagesService.uploadFileToS3(file, imageData.id);
-      refetch()
-    } catch (error) {
-      console.error('Ошибка:', error);
-      alert('Ошибка при загрузке файла.');
-    }
+    uploadImage(file);
   };
 
 
@@ -98,12 +96,12 @@ export default function UploadImage() {
         )}
       </div>
 
-      {/* Кнопка для отправки файла */}
       <button
         onClick={handleSubmit}
         className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+        disabled={isPending}
       >
-        Upload
+        { isPending ? "Loading..." : "Upload" }
       </button>
     </div>
   );

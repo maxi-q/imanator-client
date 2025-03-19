@@ -11,6 +11,7 @@ export function Providers({ children }: PropsWithChildren) {
 	return (
 		<QueryClientProvider client={client}>
 			{children}
+      <div id='modal-root'/>
 			<Toaster />
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
