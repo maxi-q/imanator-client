@@ -2,6 +2,7 @@
 import { useProfile } from "@/app/hooks/useProfile";
 import { useState } from "react";
 import { Card, openTopUpModal } from "./modules/openTopUpModal";
+import toast from "react-hot-toast";
 
 
 export default function TopUpPage() {
@@ -24,8 +25,8 @@ export default function TopUpPage() {
   const handleTopUp = async () => {
     try {
       await openTopUpModal(cards);
-      // Показать уведомление об успехе
-      // toast.success('Баланс успешно пополнен');
+
+      toast.success('Баланс успешно пополнен');
     } catch (error) {
       // Ошибка уже обработана в модалке
     }

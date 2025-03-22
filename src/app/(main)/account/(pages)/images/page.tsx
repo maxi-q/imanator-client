@@ -1,7 +1,7 @@
-import UploadImage from "../../modules/UploadImage";
-import ImagesList from "../../modules/ImagesList";
+
 
 import { protectPage } from "@/utils/server/protect-page";
+import { UploadImage, ImagesList } from "./modules";
 
 export default async function Home() {
   await protectPage()

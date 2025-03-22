@@ -18,12 +18,14 @@ export type getUploadConfigResponse = {
   fields: Record<string, string>;
 }
 
+export type loadedImages = {
+  id: string
+  createdAt: string
+  name: string
+  fileName: string
+  description: string
+}
+
 export type getImagesResponse = {
-  images: Array<{
-      id: string
-      createdAt: string
-      name: string
-      fileName: string
-      description: string
-    }>
+  images: Array<loadedImages>
 }
