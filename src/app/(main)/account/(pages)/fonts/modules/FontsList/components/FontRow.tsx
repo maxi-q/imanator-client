@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from "react"
-import { loadedImages } from "@/services/images/images.types"
+import { loadedFonts } from "@/services/fonts/fonts.types"
 
-interface ImagesTable {
-  image: loadedImages
-  downloadImage: (fileId: string, fileName: string) => Promise<void>
-  onEdit: (imageId: string) => void
-  onDelete: (imageId: string) => void
+interface FontsTable {
+  font: loadedFonts
+  downloadFont: (fileId: string, fileName: string) => Promise<void>
+  onEdit: (fontId: string) => void
+  onDelete: (fontId: string) => void
 }
 
-export const ImageRow = ({ image, downloadImage, onEdit, onDelete }: ImagesTable) => {
+export const FontRow = ({ font, downloadFont, onEdit, onDelete }: FontsTable) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -34,11 +34,11 @@ export const ImageRow = ({ image, downloadImage, onEdit, onDelete }: ImagesTable
 
   return (
     <tr
-      onClick={() => onEdit(image.id)}
+      onClick={() => onEdit(font.id)}
       className="group  hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] transition-colors border-b border-solid border-black/[.08] dark:border-white/[.145] last:border-b-0 relative cursor-pointer"
     >
       <td className="p-4 text-gray-600 dark:text-gray-300 text-sm">
-        {image.name}
+        {font.name}
 
         {isMenuOpen && (
           <div
@@ -48,7 +48,7 @@ export const ImageRow = ({ image, downloadImage, onEdit, onDelete }: ImagesTable
             <button
               onClick={(e) => {
                 e.stopPropagation()
-                onEdit(image.id)
+                onEdit(font.id)
                 setIsMenuOpen(false)
               }}
               className="block w-full px-4 py-2.5 text-sm text-blue-500 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -59,7 +59,7 @@ export const ImageRow = ({ image, downloadImage, onEdit, onDelete }: ImagesTable
             <button
               onClick={(e) => {
                 e.stopPropagation()
-                onDelete(image.id)
+                onDelete(font.id)
                 setIsMenuOpen(false)
               }}
               className="block w-full px-4 py-2.5 text-sm text-red-500 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors rounded-b-md"
@@ -76,7 +76,7 @@ export const ImageRow = ({ image, downloadImage, onEdit, onDelete }: ImagesTable
             className={`text-blue-500 hover:underline text-sm transition-transform duration-200`}
             onClick={(e) => {
               e.stopPropagation()
-              downloadImage(image.id, image.fileName)
+              downloadFont(font.id, font.fileName)
             }}
           >
             Download

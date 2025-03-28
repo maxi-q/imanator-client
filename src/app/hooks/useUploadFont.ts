@@ -1,25 +1,25 @@
-import imagesService from '@/services/images/images.service';
+import fontsService from '@/services/fonts/fonts.service';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from '@/config/tanstack/queryKeys';
 import { MutationKeys } from '@/config/tanstack/mutationKeys';
 
-export function useUploadImage() {
+export function useUploadFont() {
   const queryClient = useQueryClient();
 
-	const { mutate: uploadImage, isPending, error, isSuccess } = useMutation({
-    mutationKey: [MutationKeys.UPLOAD_IMAGE],
+	const { mutate: uploadFont, isPending, error, isSuccess } = useMutation({
+    mutationKey: [MutationKeys.UPLOAD_FONT],
     mutationFn: async (file: File) => {
-      const imageData = await imagesService.createFont({
+      const fontData = await fontsService.createFont({
         name: `${file.name} ${new Date(file.lastModified).toLocaleDateString()}`,
         fileName: file.name,
         description: 'Автоматически созданное описание'
       });
-      await imagesService.uploadFileToS3(file, imageData.id);
-      return imageData;
+      await fontsService.uploadFileToS3(file, fontData.id);
+      return fontData;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QueryKeys.IMAGES],
+        queryKey: [QueryKeys.FONTS],
         refetchType: 'active'
       });
     },
@@ -29,7 +29,7 @@ export function useUploadImage() {
   });
 
 	return {
-		uploadImage,
+		uploadFont,
     isPending,
     error,
     isSuccess

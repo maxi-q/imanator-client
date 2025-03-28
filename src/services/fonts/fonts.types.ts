@@ -1,11 +1,10 @@
-
-export type createImageRequest = {
+export type createFontRequest = {
   name: string
   fileName: string
   description: string
 }
 
-export type createImageResponse = {
+export type createFontResponse = {
     id: string,
     createdAt: string,
     name: string,
@@ -13,18 +12,18 @@ export type createImageResponse = {
     description: string,
 }
 
-export type deleteImageRequest = {
+export type deleteFontRequest = {
   id: string
 }
 
-export type deleteImageResponse = { }
+export type deleteFontResponse = { }
 
 export type getUploadConfigResponse = {
   url: string;
   fields: Record<string, string>;
 }
 
-export type loadedImages = {
+export type loadedFonts = {
   id: string
   createdAt: string
   name: string
@@ -32,6 +31,6 @@ export type loadedImages = {
   description: string
 }
 
-export type getImagesResponse = {
-  fonts: Array<loadedImages>
+export type getFontsResponse = {
+  fonts: Array<loadedFonts>
 }

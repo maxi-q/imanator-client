@@ -16,6 +16,7 @@ export default async function AccountLayout({
         <h2 className="mb-4 text-xl font-bold">Навигация</h2>
         <NavLink href="/account">Профиль</NavLink>
         <NavLink href="/account/images">Изображения</NavLink>
+        <NavLink href="/account/fonts">Шрифты</NavLink>
         <NavLink href="/account/billing">Платежный аккаунт</NavLink>
       </nav>
 

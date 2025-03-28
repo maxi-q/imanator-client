@@ -1,26 +1,26 @@
-import { loadedImages } from "@/services/images/images.types"
-import { ImageRow } from "./ImageRow"
+import { loadedFonts } from "@/services/fonts/fonts.types"
+import { FontRow } from "./FontRow"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
-import { useDeleteImage } from "@/app/hooks/useDeleteImage"
+import { useDeleteFont } from "@/app/hooks/useDeleteFont"
 
-interface ImagesTable {
-  images: Array<loadedImages>
-  downloadImage: (fileId: string, fileName: string) => Promise<void>
+interface FontsTable {
+  fonts: Array<loadedFonts>
+  downloadFont: (fileId: string, fileName: string) => Promise<void>
 }
 
-export const ImagesTable = ({images, downloadImage}: ImagesTable) => {
+export const FontsTable = ({fonts, downloadFont}: FontsTable) => {
   const router = useRouter()
-  const { deleteImage } = useDeleteImage()
+  const { deleteFont } = useDeleteFont()
 
-  const onEdit = (imageId: string) => { router.push(`images/${imageId}`) }
+  const onEdit = (fontId: string) => { router.push(`fonts/${fontId}`) }
 
-  const onDelete = async (imageId: string) => {
+  const onDelete = async (fontId: string) => {
     const isConfirmed = confirm("Удалить изображение навсегда?");
 
     if (!isConfirmed) return;
 
-    deleteImage(imageId, {
+    deleteFont(fontId, {
       onSuccess: () => {
         toast.success("Изображение успешно удалено", );
       },
@@ -43,8 +43,8 @@ export const ImagesTable = ({images, downloadImage}: ImagesTable) => {
         </tr>
       </thead>
       <tbody>
-        {images.map((image) => (
-          <ImageRow key={image.id} image={image} downloadImage={downloadImage} onEdit={onEdit} onDelete={onDelete}/>
+        {fonts.map((font) => (
+          <FontRow key={font.id} font={font} downloadFont={downloadFont} onEdit={onEdit} onDelete={onDelete}/>
         ))}
       </tbody>
     </table>

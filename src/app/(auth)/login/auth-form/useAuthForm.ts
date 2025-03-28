@@ -44,6 +44,7 @@ export function useAuthForm(isLogin: boolean) {
 			})
 		},
 		onError(error) {
+      console.log(error)
 			if (axios.isAxiosError(error)) {
 				toast.error(error.response?.data?.message)
 			}

@@ -1,21 +1,21 @@
 import { instance } from '@/api/axios';
-import { createImageRequest, createImageResponse, deleteImageRequest, deleteImageResponse, getImagesResponse, getUploadConfigResponse } from './images.types';
+import { createFontRequest, createFontResponse, deleteFontRequest, deleteFontResponse, getFontsResponse, getUploadConfigResponse } from './fonts.types';
 
-class ImagesService {
-  private _BASE_URL = '/images';
+class FontsService {
+  private _BASE_URL = '/fonts';
 
-  async createFont(data: createImageRequest) {
-    const response = await instance.post<createImageResponse>(`${this._BASE_URL}/`, data);
+  async createFont(data: createFontRequest) {
+    const response = await instance.post<createFontResponse>(`${this._BASE_URL}/`, data);
     return response.data;
   }
 
-  async deleteImage({ id }: deleteImageRequest) {
-    const response = await instance.delete<deleteImageResponse>(`${this._BASE_URL}/${id}`);
+  async deleteFont({ id }: deleteFontRequest) {
+    const response = await instance.delete<deleteFontResponse>(`${this._BASE_URL}/${id}`);
     return response.data;
   }
 
-  async getImages() {
-    const response = await instance.get<getImagesResponse>(`${this._BASE_URL}/my`);
+  async getFonts() {
+    const response = await instance.get<getFontsResponse>(`${this._BASE_URL}/my`);
     return response.data;
   }
 
@@ -59,6 +59,6 @@ class ImagesService {
   }
 }
 
-const imagesService = new ImagesService();
+const imagesService = new FontsService();
 
 export default imagesService;

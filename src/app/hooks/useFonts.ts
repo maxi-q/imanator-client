@@ -1,24 +1,24 @@
 import { QueryKeys } from '@/config/tanstack/queryKeys';
-import imagesService from '@/services/images/images.service';
+import fontsService from '@/services/fonts/fonts.service';
 import { useQuery } from '@tanstack/react-query'
 
-export function useImages() {
+export function useFonts() {
 	const { refetch, data, isLoading, isRefetching } = useQuery({
-    queryKey: [QueryKeys.IMAGES],
-    queryFn: () => imagesService.getImages(),
+    queryKey: [QueryKeys.FONTS],
+    queryFn: () => fontsService.getFonts(),
     refetchInterval: 1800000,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
 
-	const images = data?.fonts || []
+	const fonts = data?.fonts || []
 
 	return {
 		isLoading,
     refetch,
     isRefetching,
-		images: [
-			...images
+		fonts: [
+			...fonts
 		]
 	}
 }

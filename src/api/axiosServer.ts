@@ -36,6 +36,7 @@ axiosServer.interceptors.response.use(
       method: error.config?.method || 'unknown',
       // stack: error.stack || '',
       status: error.response?.status || 500,
+      baseURL: error.config?.baseURL || '',
       url: error.config?.url || '',
     };
 

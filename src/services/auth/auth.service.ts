@@ -1,5 +1,7 @@
 import { IFormData, IUser } from '@/types/types'
 import { axiosServer } from '@/api/axiosServer'
+import axios from 'axios'
+import { API_URL } from '@/constants'
 
 
 interface IAuthResponse extends Omit<IUser, 'createdAt' | 'defaultWebhookUrl'> {
@@ -17,13 +19,25 @@ class AuthService {
 		type: 'login' | 'register',
 		data: IFormData,
 	) {
+    try {
+      const a = await fetch(`${API_URL}/auth/${type}`, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      console.log(a)
 
-		const response = await axiosServer.post<IAuthResponse>(
-			`/auth/${type}`,
-			data
-		)
+      // throw new Error('123')
 
-		return response.data
+      // const response = await axios.post(
+      //   `${API_URL}/auth/${type}`,
+      //   data
+      // )
+
+      // return response.data
+
+    } catch (e) {
+      console.log(e)
+    }
 	}
 
 	async getNewTokensByRefresh(refreshToken: string) {
